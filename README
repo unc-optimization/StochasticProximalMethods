@@ -3,7 +3,7 @@ A set of stochastic methods for (composite) non-convex problems.
 ## How to run:
 
 ### Modify import_data.py:
-  + Modify folder_path which contains all dataset
+  + Modify data_path which contains all dataset
 
 ### Nonnegative PCA example:
 
