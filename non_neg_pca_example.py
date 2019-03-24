@@ -17,15 +17,19 @@ All rights reserved.
 
 If you found this helpful and are using it within our software please cite the following publication:
 
-* N. H. Pham, L. M. Nguyen, D. T. Phan, and Q. Tran-Dinh, **[ProxSARAH: An Efficient Algorithmic Framework for Stochastic Composite Nonconvex Optimization](https://arxiv.org/abs/1902.05679)**, _Arxiv preprint_, 2019.
+* N. H. Pham, L. M. Nguyen, D. T. Phan, and Q. Tran-Dinh, **[ProxSARAH: An Efficient Algorithmic Framework for Stochastic Composite Nonconvex Optimization](https://arxiv.org/abs/1902.05679)**, _arXiv preprint arXiv:1902.05679_, 2019.
 
 """
 
+# external library
 import matplotlib.pyplot as plt
 import sklearn
 from scipy import sparse
 from import_data import *
 from argParser import *
+import os
+import time
+import sys
 
 # import methods
 from method_ProxSARAH import *
@@ -37,10 +41,6 @@ from method_ProxGD import *
 
 # import utility functions
 from util_NonNegPCA import *
-
-import os
-import time
-import sys
 
 ## USAGE:
 
@@ -95,9 +95,6 @@ if not sparse.isspmatrix_csr(X_train):
 # get size of data
 num_train, total_dim = np.shape(X_train)
 
-if num_train < 2:
-	sys.exit("Input dataset not found!")
-
 # we do not have test data
 num_test 		= 0
 total_dim_test 	= 0
@@ -107,7 +104,7 @@ Y_train = Y_train.flatten()
 if num_test > 0:
 	Y_test = Y_test.flatten()
 
-# print size
+# print input data summary
 print('Input size:', np.shape(X_train) )
 
 print('Average Num Non Zero:', np.mean(X_train.getnnz(axis=1)))
@@ -124,9 +121,6 @@ sklearn.preprocessing.normalize(X_train, 'l2', axis=1, copy=False)
 if num_test > 0:
 	sklearn.preprocessing.normalize(X_test, 'l2', axis=1, copy=False)
 print()
-
-# fix a seed
-np.random.seed(0)
 
 #=================== Define Function Pointer =====================
 
@@ -249,12 +243,32 @@ prox_sarah_adaptive_inner_batch = prox_sarah_adaptive_inner_batch.astype(int)
 
 #================== Generate an initial point ====================
 
+# fix a seed
+np.random.seed(0)
+
 # initial point
 w0 = np.ones(total_dim)
 w0 = 0.99*(1/np.linalg.norm(w0))*w0
 
 # Define the bias vector
 bias = np.zeros(num_train)
+
+
+# run ProxSGD to generate initial point
+if total_dim < 100000 and num_train < 100000:
+	batch_init = 1
+	epoch_init = 1
+else:
+	batch_init = batch_size
+	epoch_init = 5
+
+w_init, hist_NumGrad_prox_sgd, hist_NumEpoch_prox_sgd, hist_TrainLoss_prox_sgd, \
+hist_GradNorm_prox_sgd, hist_MinGradNorm_prox_sgd, hist_TrainAcc_prox_sgd, hist_TestAcc_prox_sgd \
+		= prox_sgd(num_train, total_dim, X_train, Y_train, X_test, Y_test, bias, eta_prox_sgd,\
+		eta_prime_prox_sgd, eta_comp, epoch_init, w0, lamb, batch_init, GradEval, \
+		FuncF_Eval, ProxEval, FuncG_Eval, Acc_Eval, isAccEval, verbose, log_enable)
+
+w0 = w_init
 
 #=================================================================
 #=====================  Training Process  ========================
@@ -592,101 +606,6 @@ if plot_option:
 	plt.ylabel("Min Norm Grad Mapping Square")
 	plt.legend()
 	plt.show()
-
-	if isAccEval:
-		#=================================================================
-		# Plot Train Accuracy
-
-		fig4 = plt.figure()
-
-		if (alg_list["ProxSARAH"] and prox_sarah_option['1']):
-			plt.plot(np.array(hist_NumEpoch_prox_sarah1), hist_TrainAcc_prox_sarah1, 'b-', label = 'ProxSARAH single sample')
-
-		if (alg_list["ProxSARAH"] and prox_sarah_option['2']):
-			plt.plot(np.array(hist_NumEpoch_prox_sarah2), hist_TrainAcc_prox_sarah2, 'C0-', label = 'ProxSARAH b=sqrt(n), gamma = 0.99')
-
-		if (alg_list["ProxSARAH"] and prox_sarah_option['3']):
-			plt.plot(np.array(hist_NumEpoch_prox_sarah3), hist_TrainAcc_prox_sarah3, 'C1-', label = 'ProxSARAH b=sqrt(n), gamma = 0.99')
-
-		if (alg_list["ProxSARAH"] and prox_sarah_option['4']):
-			plt.plot(np.array(hist_NumEpoch_prox_sarah4), hist_TrainAcc_prox_sarah4, 'C2-', label = 'ProxSARAH b=n^(1/3), gamma = 0.99')
-
-		if (alg_list["ProxSARAH"] and prox_sarah_option['5']):
-			plt.plot(np.array(hist_NumEpoch_prox_sarah5), hist_TrainAcc_prox_sarah5, 'C3-', label = 'ProxSARAH b=n^(1/3), gamma = 0.99')	
-
-		if (alg_list["ProxSARAHAdaptive"] and prox_sarah_adaptive_option['1']):
-			plt.plot(np.array(hist_NumEpoch_prox_sarah_adaptive1), hist_TrainAcc_prox_sarah_adaptive1, 'C4-', label = 'ProxSARAH Adaptive single sample')
-
-		if (alg_list["ProxSARAHAdaptive"] and prox_sarah_adaptive_option['2']):
-			plt.plot(np.array(hist_NumEpoch_prox_sarah_adaptive2), hist_TrainAcc_prox_sarah_adaptive2, 'C5-', label = 'ProxSARAH Adaptive b=sqrt(n)')
-
-		if (alg_list["ProxSARAHAdaptive"] and prox_sarah_adaptive_option['3']):
-			plt.plot(np.array(hist_NumEpoch_prox_sarah_adaptive3), hist_TrainAcc_prox_sarah_adaptive3, 'C6-', label = 'ProxSARAH Adaptive b=n^(1/3)')
-
-		if (alg_list["ProxSpiderBoost"]):
-			plt.plot(np.array(hist_NumEpoch_prox_spdb), hist_TrainAcc_prox_spdb, 'C9-', label = 'ProxSpiderBoost')
-
-		if (alg_list["ProxSVRG"]):
-			plt.plot(np.array(hist_NumEpoch_prox_svrg), hist_TrainAcc_prox_svrg, 'C8--', label = 'ProxSVRG')
-
-		if (alg_list["ProxSGD"]):
-			plt.plot(np.array(hist_NumEpoch_prox_sgd), hist_TrainAcc_prox_sgd, 'g-.', label = 'ProxSGD')
-
-		if (alg_list["ProxGD"]):
-			plt.plot(np.array(hist_NumEpoch_prox_gd), hist_TrainAcc_prox_gd, 'C7-.', label = 'ProxGD')
-
-		fig4.suptitle("Train Accuracy - " + examplename + ' - ' +data_name)
-		plt.xlabel("Number of Effective Passes")
-		plt.ylabel("Train Accuracy")
-		plt.legend()
-		plt.show()
-
-		#=================================================================
-		# Plot Test Accuracy
-
-		fig5 = plt.figure()
-
-		if (alg_list["ProxSARAH"] and prox_sarah_option['1']):
-			plt.plot(np.array(hist_NumEpoch_prox_sarah1), hist_TestAcc_prox_sarah1, 'b-', label = 'ProxSARAH single sample')
-
-		if (alg_list["ProxSARAH"] and prox_sarah_option['2']):
-			plt.plot(np.array(hist_NumEpoch_prox_sarah2), hist_TestAcc_prox_sarah2, 'C0-', label = 'ProxSARAH b=sqrt(n), gamma = 0.99')
-
-		if (alg_list["ProxSARAH"] and prox_sarah_option['3']):
-			plt.plot(np.array(hist_NumEpoch_prox_sarah3), hist_TestAcc_prox_sarah3, 'C1-', label = 'ProxSARAH b=sqrt(n), gamma = 0.99')
-
-		if (alg_list["ProxSARAH"] and prox_sarah_option['4']):
-			plt.plot(np.array(hist_NumEpoch_prox_sarah4), hist_TestAcc_prox_sarah4, 'C2-', label = 'ProxSARAH b=n^(1/3), gamma = 0.99')
-
-		if (alg_list["ProxSARAH"] and prox_sarah_option['5']):
-			plt.plot(np.array(hist_NumEpoch_prox_sarah5), hist_TestAcc_prox_sarah5, 'C3-', label = 'ProxSARAH b=n^(1/3), gamma = 0.99')	
-
-		if (alg_list["ProxSARAHAdaptive"] and prox_sarah_adaptive_option['1']):
-			plt.plot(np.array(hist_NumEpoch_prox_sarah_adaptive1), hist_TestAcc_prox_sarah_adaptive1, 'C4-', label = 'ProxSARAH Adaptive single sample')
-
-		if (alg_list["ProxSARAHAdaptive"] and prox_sarah_adaptive_option['2']):
-			plt.plot(np.array(hist_NumEpoch_prox_sarah_adaptive2), hist_TestAcc_prox_sarah_adaptive2, 'C5-', label = 'ProxSARAH Adaptive b=sqrt(n)')
-
-		if (alg_list["ProxSARAHAdaptive"] and prox_sarah_adaptive_option['3']):
-			plt.plot(np.array(hist_NumEpoch_prox_sarah_adaptive3), hist_TestAcc_prox_sarah_adaptive3, 'C6-', label = 'ProxSARAH Adaptive b=n^(1/3)')
-
-		if (alg_list["ProxSpiderBoost"]):
-			plt.plot(np.array(hist_NumEpoch_prox_spdb), hist_TestAcc_prox_spdb, 'C9-', label = 'ProxSpiderBoost')
-
-		if (alg_list["ProxSVRG"]):
-			plt.plot(np.array(hist_NumEpoch_prox_svrg), hist_TestAcc_prox_svrg, 'C8--', label = 'ProxSVRG')
-
-		if (alg_list["ProxSGD"]):
-			plt.plot(np.array(hist_NumEpoch_prox_sgd), hist_TestAcc_prox_sgd, 'g-.', label = 'ProxSGD')
-
-		if (alg_list["ProxGD"]):
-			plt.plot(np.array(hist_NumEpoch_prox_gd), hist_TestAcc_prox_gd, 'C7-.', label = 'ProxGD')
-
-		fig5.suptitle("Test Accuracy - " + examplename + ' - ' +data_name)
-		plt.xlabel("Number of Effective Passes")
-		plt.ylabel("Test Accuracy")
-		plt.legend()
-		plt.show()
 
 #=================================================================
 		

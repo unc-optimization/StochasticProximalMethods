@@ -10,7 +10,7 @@ This package is the implementation of ProxSARAH algorithm and its variants along
 
 We hope that this program will be useful to others, and we would like to hear about your experience with it. If you found it helpful and are using it within our software please cite the following publication:
 
-* N. H. Pham, L. M. Nguyen, D. T. Phan, and Q. Tran-Dinh, **[ProxSARAH: An Efficient Algorithmic Framework for Stochastic Composite Nonconvex Optimization](https://arxiv.org/abs/1902.05679)**, _Arxiv preprint_, 2019.
+* N. H. Pham, L. M. Nguyen, D. T. Phan, and Q. Tran-Dinh, **[ProxSARAH: An Efficient Algorithmic Framework for Stochastic Composite Nonconvex Optimization](https://arxiv.org/abs/1902.05679)**, _arXiv preprint arXiv:1902.05679_, 2019.
 
 ## Dependencies
 
@@ -26,7 +26,7 @@ The code is tested under Python 3.6.3 and it requires additional packages if you
 pip install scipy argParser matplotlib sklearn joblib
 ```
 
-The package supports LIBSVM dataset which can be downloaded [here](https://www.google.com).
+The package supports LIBSVM dataset which can be downloaded [here](https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/binary.html).
 
 ## How to run
 
@@ -82,5 +82,5 @@ python binary_classification_example.py -d news20.binary -p 1 -a 12456
 
 * mini batch:
 ```python
-python binary_classification_example.py -d news20 -p1 -a 123456 -b 200 -so 2345 -aso 23
+python binary_classification_example.py -d news20.binary -p1 -a 123456 -b 200 -so 2345 -aso 23
 ```
