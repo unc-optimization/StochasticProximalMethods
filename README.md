@@ -1,8 +1,8 @@
 # StochasticProximalMethods
-=====
+
 
 ## Introduction
-------------
+
 
 This package is the implementation of ProxSARAH algorithm and its variants along with other stochastic proximal gradient algorithms including ProxSVRG, ProxSpiderBoost, ProxSGD, and ProxGD to solve the stochastic composite, nonconvex, and possibly nonsmooth optimization problem which covers the composite finite-sum minimization problem as a special case.
 
@@ -29,7 +29,6 @@ pip install scipy argParser matplotlib sklearn joblib
 The package supports LIBSVM dataset which can be downloaded [here](https://www.google.com).
 
 ## How to run
-------------
 
 1. Modify the path to your dataset folder:
 	In order to run the code, you need to provide a folder that contain your dataset. To do so, go to `import_data.py` script and modify the `data_path` variable. Note that your path has to end with a '/', e.g.:
@@ -64,7 +63,7 @@ python non_neg_pca_example.py -d mnist -p 1 -a 12456
 which means we are running NonNegative PCA example with dataset `mnist` using 5 algorithms: ProxSARAH-v1, ProxSARAH-A-v1, ProxSVRG, ProxSGD, and ProxGD, respectively. You can run a subset of the algorithms too:
 ```python
 python non_neg_pca_example.py -d mnist -p 1 -a 124
-``
+```
 only runs ProxSARAH-v1, ProxSARAH-A-v1, and ProxSVRG.
 
 ⋅⋅- mini batch:
