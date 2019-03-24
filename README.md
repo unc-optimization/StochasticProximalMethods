@@ -56,7 +56,8 @@ python binary_classification_example.py -h
 ```
 
 2. If you want to run the Nonnegative PCA example, use the command below
-⋅⋅- single sample case:
+
+* single sample case:
 ```python
 python non_neg_pca_example.py -d mnist -p 1 -a 12456
 ```
@@ -66,19 +67,20 @@ python non_neg_pca_example.py -d mnist -p 1 -a 124
 ```
 only runs ProxSARAH-v1, ProxSARAH-A-v1, and ProxSVRG.
 
-⋅⋅- mini batch:
+* mini batch:
 ```python
 python non_neg_pca_example.py -d mnist -p 1 -a 123456 -b 250 -so 2345 -aso 23
 ```
 which means we are running NonNegative PCA example with dataset `mnist` using 6 algorithms: ProxSARAH-v2 to ProxSARAH-v5, ProxSARAH-A-v2, ProxSARAH-A-v3, ProxSpiderBoost, ProxSVRG, ProxSGD, and ProxGD, respectively. Here, the batchsize is specified through option `-b 250`. **Important: You must specified a batch size > 1 in this case.**
 
 3. If you want to run the Binary Classification with nonconvex loss example, use the command below
-⋅⋅- single sample case:
+
+* single sample case:
 ```python
 python binary_classification_example.py -d news20.binary -p 1 -a 12456
 ```
 
-⋅⋅- mini batch:
+* mini batch:
 ```python
 python binary_classification_example.py -d news20 -p1 -a 123456 -b 200 -so 2345 -aso 23
 ```
