@@ -10,11 +10,23 @@ which covers the finite sum as a special case
 
 \f $ F(w) = \frac{1}{n} \sum_{i=1}^n (f_i(w)) + g(w) \f $
 
+Copyright (c) 2019 Nhan H. Pham, Department of Statistics and Operations Research, University of North Carolina at Chapel Hill
+
+Copyright (c) 2019 Quoc Tran-Dinh, Department of Statistics and Operations Research, University of North Carolina at Chapel Hill
+
+Copyright (c) 2019 Lam M. Nguyen, IBM Research, Thomas J. Watson Research Center
+Yorktown Heights
+
+Copyright (c) 2019 Dzung T. Phan, IBM Research, Thomas J. Watson Research Center
+Yorktown Heights
+All rights reserved.
+
+If you found this helpful and are using it within our software please cite the following publication:
+
+* N. H. Pham, L. M. Nguyen, D. T. Phan, and Q. Tran-Dinh, **[ProxSARAH: An Efficient Algorithmic Framework for Stochastic Composite Nonconvex Optimization](https://arxiv.org/abs/1902.05679)**, _Arxiv preprint_, 2019.
+
 """
-#########################################################
-# written by Nhan H. Pham								#
-# edited: 2019/02/27									#
-#########################################################
+
 
 #library import
 import numpy as np

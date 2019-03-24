@@ -5,14 +5,29 @@ Useful functions for non-negative PCA example.
 \f$ \min_{w\in\mathbb{R}^d}\left\{ f(w) := -\frac{1}{2n}\sum_{i=1}^nw^{\top}(z_iz_i^{\top})w \mid \|w\| \leq 1, ~w \geq 0 \right\} \f$
 
 The package contains differnt functions to evaluate objective value, gradient as well as proximal operator for the non-negative PCA example.
+
+Copyright (c) 2019 Nhan H. Pham, Department of Statistics and Operations Research, University of North Carolina at Chapel Hill
+
+Copyright (c) 2019 Quoc Tran-Dinh, Department of Statistics and Operations Research, University of North Carolina at Chapel Hill
+
+Copyright (c) 2019 Lam M. Nguyen, IBM Research, Thomas J. Watson Research Center
+Yorktown Heights
+
+Copyright (c) 2019 Dzung T. Phan, IBM Research, Thomas J. Watson Research Center
+Yorktown Heights
+All rights reserved.
+
+If you found this helpful and are using it within our software please cite the following publication:
+
+* N. H. Pham, L. M. Nguyen, D. T. Phan, and Q. Tran-Dinh, **[ProxSARAH: An Efficient Algorithmic Framework for Stochastic Composite Nonconvex Optimization](https://arxiv.org/abs/1902.05679)**, _Arxiv preprint_, 2019.
+
 """
 
+# external library
 import numpy as np
 import scipy
 import random
 import math
-
-import time
 
 ## constant indicating total available memory when calculating full gradient
 total_mem_full = 3.0e10

@@ -1,8 +1,24 @@
 """@package non_neg_pca_example
-Useful functions for nonnegative PCA example.
+This package implements the Nonnegative PCA example.
 
 The package contains differnt functions to evaluate objective value, \
 gradient as well as proximal operator for the nonnegative PCA example.
+
+Copyright (c) 2019 Nhan H. Pham, Department of Statistics and Operations Research, University of North Carolina at Chapel Hill
+
+Copyright (c) 2019 Quoc Tran-Dinh, Department of Statistics and Operations Research, University of North Carolina at Chapel Hill
+
+Copyright (c) 2019 Lam M. Nguyen, IBM Research, Thomas J. Watson Research Center
+Yorktown Heights
+
+Copyright (c) 2019 Dzung T. Phan, IBM Research, Thomas J. Watson Research Center
+Yorktown Heights
+All rights reserved.
+
+If you found this helpful and are using it within our software please cite the following publication:
+
+* N. H. Pham, L. M. Nguyen, D. T. Phan, and Q. Tran-Dinh, **[ProxSARAH: An Efficient Algorithmic Framework for Stochastic Composite Nonconvex Optimization](https://arxiv.org/abs/1902.05679)**, _Arxiv preprint_, 2019.
+
 """
 
 import matplotlib.pyplot as plt
@@ -22,7 +38,6 @@ from method_ProxGD import *
 # import utility functions
 from util_NonNegPCA import *
 
-import pandas as pd
 import os
 import time
 import sys
@@ -68,7 +83,6 @@ batch_size 		= prog_option["BatchSize"]
 max_num_epochs 	= prog_option["MaxNumEpoch"]
 verbose			= prog_option["Verbose"]
 log_enable		= prog_option["LogEnable"]
-prog_id			= prog_option["ProgID"]
 
 # load data
 print('Load data', data_name)
