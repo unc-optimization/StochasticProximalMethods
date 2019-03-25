@@ -86,6 +86,6 @@ python binary_classification_example.py -d news20.binary -p 1 -a 12456
 
 * mini batch:
 ```python
-python binary_classification_example.py -d news20.binary -p1 -a 123456 -b 200 -so 2345 -aso 23
+python binary_classification_example.py -d news20.binary -p 1 -a 123456 -b 200 -so 2345 -aso 23
 ```
 The interpretation for each argument is the same as in nonnegative PCA example.
