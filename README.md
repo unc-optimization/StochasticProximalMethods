@@ -28,7 +28,7 @@ The code is tested under Python 3.6.3 and it requires additional packages if you
 pip install scipy argParser matplotlib sklearn joblib
 ```
 
-The package supports LIBSVM dataset which can be downloaded <a href="https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/binary.html" target="_blank">here</a>.
+The package supports LIBSVM dataset which can be downloaded [here](https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/binary.html).
 
 ## How to run
 
@@ -73,7 +73,7 @@ only runs ProxSARAH-v1, ProxSARAH-A-v1, and ProxSVRG.
 ```python
 python non_neg_pca_example.py -d mnist -p 1 -a 123456 -b 250 -so 2345 -aso 23
 ```
-which means we are running NonNegative PCA example with dataset `mnist` using 6 algorithms: ProxSARAH-v2 to ProxSARAH-v5, ProxSARAH-A-v2, ProxSARAH-A-v3, ProxSpiderBoost, ProxSVRG, ProxSGD, and ProxGD, respectively. Here, the batchsize is specified through option `-b 250`. **Important: You must specified a batch size > 1 in this case.**
+**Meaning:** we are running NonNegative PCA example with dataset `mnist` using 6 algorithms: ProxSARAH-v2 to ProxSARAH-v5, ProxSARAH-A-v2, ProxSARAH-A-v3, ProxSpiderBoost, ProxSVRG, ProxSGD, and ProxGD, respectively. Here, the batchsize is specified through option `-b 250`. **Important: You must specified a batch size > 1 in this case.**
 
 3. If you want to run the Binary Classification with nonconvex loss example, use the command below
 
@@ -86,3 +86,4 @@ python binary_classification_example.py -d news20.binary -p 1 -a 12456
 ```python
 python binary_classification_example.py -d news20.binary -p1 -a 123456 -b 200 -so 2345 -aso 23
 ```
+The interpretation for each argument is the same as in nonnegative PCA example.
