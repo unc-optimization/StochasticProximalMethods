@@ -32,11 +32,15 @@ import sys
 import os
 
 # Important: change these paths to folder containing datasets according to your setup.
-# data_path = '/home/MyPC/dataset/'
+# data_path = '/home/MyPC/dataset'
 
 # check if dataset path exists
 if not os.path.exists(data_path):
 	sys.exit("\033[91m {}\033[00m" .format("Error: Dataset not found!!!"))
+
+# check if path ends with '/', if not append '/' to the path
+if data_path[-1] != '/':
+	data_path = data_path + '/'
 
 # set a location to store cache file
 # default: same folder as dataset folder

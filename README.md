@@ -33,9 +33,11 @@ The package supports LIBSVM dataset which can be downloaded [here](https://www.c
 ## How to run
 
 1. Modify the path to your dataset folder:
-	In order to run the code, you need to provide a folder that contain your dataset. To do so, go to `import_data.py` script and modify the `data_path` variable. Note that your path has to end with a '/', e.g.:
+	In order to run the code, you need to provide a folder that contain your dataset. To do so, go to `import_data.py` script and modify the `data_path` variable.
+
+	* Example:
 	```python
-	data_path = '/home/MyPC/dataset/'
+	data_path = '/home/MyPC/dataset'
 	```
 
 2. Understanding the argument:
