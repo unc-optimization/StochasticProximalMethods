@@ -12,6 +12,8 @@ We hope that this program will be useful to others, and we would like to hear ab
 
 * N. H. Pham, L. M. Nguyen, D. T. Phan, and Q. Tran-Dinh, **[ProxSARAH: An Efficient Algorithmic Framework for Stochastic Composite Nonconvex Optimization](https://arxiv.org/abs/1902.05679)**, _arXiv preprint arXiv:1902.05679_, 2019.
 
+Feel free to send feedback and questions about the package to
+
 ## Dependencies
 
 The code is tested under Python 3.6.3 and it requires additional packages if you do not have them
@@ -26,7 +28,7 @@ The code is tested under Python 3.6.3 and it requires additional packages if you
 pip install scipy argParser matplotlib sklearn joblib
 ```
 
-The package supports LIBSVM dataset which can be downloaded [here](https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/binary.html).
+The package supports LIBSVM dataset which can be downloaded <a href="https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/binary.html" target="_blank">here</a>.
 
 ## How to run
 
