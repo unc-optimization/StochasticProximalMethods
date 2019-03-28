@@ -63,7 +63,7 @@ def import_data(data_option):
 	-------
 	@retval X_train : train data
 	@retval New_Y_train : train label
-	retval X_test : test data
+	@retval X_test : test data
 	@retval New_Y_test : test label
 	"""
 	if (data_option == 'mnist'): 

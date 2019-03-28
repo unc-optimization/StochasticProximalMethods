@@ -1,4 +1,5 @@
 """@package non_neg_pca_example
+
 This package implements the Nonnegative PCA example.
 
 The package contains differnt functions to evaluate objective value, \

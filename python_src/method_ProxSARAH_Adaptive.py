@@ -8,7 +8,7 @@ The algorithm is used to solve the nonconvex composite problem
 
 which covers the finite sum as a special case
 
-\f $ F(w) = \frac{1}{n} \sum_{i=1}^n (f_i(w)) + g(w) \f $
+\f $ F(w) = \frac{1}{n} \sum_{i=1}^n (f_i(w)) + g(w). \f $
 
 Copyright (c) 2019 Nhan H. Pham, Department of Statistics and Operations Research, University of North Carolina at Chapel Hill
 

@@ -1,4 +1,5 @@
 """@package binary_classification_example
+
 This package implements the binary classification with nonconvex loss example.
 
 Copyright (c) 2019 Nhan H. Pham, Department of Statistics and Operations Research, University of North Carolina at Chapel Hill
@@ -691,13 +692,13 @@ if plot_option:
 			plt.plot(np.array(hist_NumEpoch_prox_sarah1), hist_TrainAcc_prox_sarah1, 'b-', label = 'ProxSARAH single sample')
 
 		if (alg_list["ProxSARAH"] and prox_sarah_option['2']):
-			plt.plot(np.array(hist_NumEpoch_prox_sarah2), hist_TrainAcc_prox_sarah2, 'C0-', label = 'ProxSARAH b=sqrt(n), gamma = 0.99')
+			plt.plot(np.array(hist_NumEpoch_prox_sarah2), hist_TrainAcc_prox_sarah2, 'C0-', label = 'ProxSARAH b=sqrt(n), gamma = 0.95')
 
 		if (alg_list["ProxSARAH"] and prox_sarah_option['3']):
 			plt.plot(np.array(hist_NumEpoch_prox_sarah3), hist_TrainAcc_prox_sarah3, 'C1-', label = 'ProxSARAH b=sqrt(n), gamma = 0.99')
 
 		if (alg_list["ProxSARAH"] and prox_sarah_option['4']):
-			plt.plot(np.array(hist_NumEpoch_prox_sarah4), hist_TrainAcc_prox_sarah4, 'C2-', label = 'ProxSARAH b=n^(1/3), gamma = 0.99')
+			plt.plot(np.array(hist_NumEpoch_prox_sarah4), hist_TrainAcc_prox_sarah4, 'C2-', label = 'ProxSARAH b=n^(1/3), gamma = 0.95')
 
 		if (alg_list["ProxSARAH"] and prox_sarah_option['5']):
 			plt.plot(np.array(hist_NumEpoch_prox_sarah5), hist_TrainAcc_prox_sarah5, 'C3-', label = 'ProxSARAH b=n^(1/3), gamma = 0.99')	
@@ -738,13 +739,13 @@ if plot_option:
 			plt.plot(np.array(hist_NumEpoch_prox_sarah1), hist_TestAcc_prox_sarah1, 'b-', label = 'ProxSARAH single sample')
 
 		if (alg_list["ProxSARAH"] and prox_sarah_option['2']):
-			plt.plot(np.array(hist_NumEpoch_prox_sarah2), hist_TestAcc_prox_sarah2, 'C0-', label = 'ProxSARAH b=sqrt(n), gamma = 0.99')
+			plt.plot(np.array(hist_NumEpoch_prox_sarah2), hist_TestAcc_prox_sarah2, 'C0-', label = 'ProxSARAH b=sqrt(n), gamma = 0.95')
 
 		if (alg_list["ProxSARAH"] and prox_sarah_option['3']):
 			plt.plot(np.array(hist_NumEpoch_prox_sarah3), hist_TestAcc_prox_sarah3, 'C1-', label = 'ProxSARAH b=sqrt(n), gamma = 0.99')
 
 		if (alg_list["ProxSARAH"] and prox_sarah_option['4']):
-			plt.plot(np.array(hist_NumEpoch_prox_sarah4), hist_TestAcc_prox_sarah4, 'C2-', label = 'ProxSARAH b=n^(1/3), gamma = 0.99')
+			plt.plot(np.array(hist_NumEpoch_prox_sarah4), hist_TestAcc_prox_sarah4, 'C2-', label = 'ProxSARAH b=n^(1/3), gamma = 0.95')
 
 		if (alg_list["ProxSARAH"] and prox_sarah_option['5']):
 			plt.plot(np.array(hist_NumEpoch_prox_sarah5), hist_TestAcc_prox_sarah5, 'C3-', label = 'ProxSARAH b=n^(1/3), gamma = 0.99')	

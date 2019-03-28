@@ -1,6 +1,6 @@
-"""! @package method_ProxSpiderBoost
+"""! @package method_ProxSVRG
 
-Implementation of ProxSpiderBoost algorithm.
+Implementation of ProxSVRG algorithm.
 
 The algorithm is used to solve the nonconvex composite problem
     
@@ -8,7 +8,7 @@ The algorithm is used to solve the nonconvex composite problem
 
 which covers the finite sum as a special case
 
-\f $ F(w) = \frac{1}{n} \sum_{i=1}^n (f_i(w)) + g(w) \f $
+\f $ F(w) = \frac{1}{n} \sum_{i=1}^n (f_i(w)) + g(w). \f $
 
 Copyright (c) 2019 Nhan H. Pham, Department of Statistics and Operations Research, University of North Carolina at Chapel Hill
 
@@ -25,18 +25,19 @@ If you found this helpful and are using it within our software please cite the f
 
 * N. H. Pham, L. M. Nguyen, D. T. Phan, and Q. Tran-Dinh, **[ProxSARAH: An Efficient Algorithmic Framework for Stochastic Composite Nonconvex Optimization](https://arxiv.org/abs/1902.05679)**, _arXiv preprint arXiv:1902.05679_, 2019.
 
+
 """
 
 #library import
 import numpy as np
 
 #===============================================================================================================================
-# ProxSpiderBoost
+# ProxSVRG
 
-def prox_spbd(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_num_epoch, max_inner, w0, lamb, batch_size, inner_batch_size, \
+def prox_svrg(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_num_epoch, max_inner, w0, lamb, batch_size, \
 							GradEval, GradDiffEval, FuncF_Eval, ProxEval, FuncG_Eval, Acc_Eval, isAccEval, verbose = 0, is_fun_eval = 1):
 
-	"""! ProxSpiderBoost algorithm
+	"""! ProxSVRG algorithm
 
 	Parameters
 	----------
@@ -53,8 +54,7 @@ def prox_spbd(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_n
 	@param max_inner : maximum number of inner loop's iterations
 	@param w0 : initial point
 	@param lamb : penalty parameter of the non-smooth objective
-	@param batch_size : if < n, only compute an estimator of the full gradient. Else compute full gradient
-	@param inner_batch_size : batch size used to calculate gradient difference in the inner loop
+	@param batch_size : batch size used to calculate gradient difference in the inner loop
 	@param GradEval : function pointer for gradient of f
 	@param GradDiffEval : function pointer for difference of gradient nablaf(w') - nablaf(w)
 	@param FuncF_Eval : function pointer to compute objective value of f(w)
@@ -72,7 +72,7 @@ def prox_spbd(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_n
 
 	Returns
 	-------
-	@ret w : solution
+	@retval w : solution
 	@retval hist_TrainLoss : train loss history
 	@retval hist_NumGrad : number of gradient evaluations history
 	@retval hist_GradNorm : squared norm of gradient mapping history
@@ -98,7 +98,6 @@ def prox_spbd(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_n
 	num_grad 	= 0
 	num_epoch 	= 0
 
-
 	# store previous time when message had been printed
 	last_print_num_grad = num_grad
 
@@ -112,7 +111,8 @@ def prox_spbd(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_n
 
 	# print initial message
 	if verbose:
-		print('Start ProxSpiderBoost...', '\neta = ', eta, '\nInner Batch Size:', inner_batch_size)
+		print('Start ProxSVRG...')
+		print('eta = ', eta, '\nInner Batch Size:', batch_size)
 
 	# Assign initial value
 	w_til = w0
@@ -120,18 +120,10 @@ def prox_spbd(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_n
 	# Outer Loop
 	while num_epoch < max_num_epoch:
 
-		# calculate batch gradient, need to calculate full gradient for stats report
-		if batch_size < n:
-			v_cur = GradEval(n, d, batch_size, X_train, Y_train, bias, w_til, nnz_Xtrain)
-			# we have not calculated full gradient, need to do it here
-			if is_fun_eval:
-				full_grad, XYw_til = GradEval(n, d, n, X_train, Y_train, bias, w_til, nnz_Xtrain)
-		else:
-			full_grad, XYw_til = GradEval(n, d, n, X_train, Y_train, bias, w_til, nnz_Xtrain)
-			v_cur = full_grad
+		# calculate full gradient
+		full_grad, XYw_til = GradEval(n, d, n, X_train, Y_train, bias, w_til, nnz_Xtrain)
 		
 		if is_fun_eval:
-
 			# calculate gradient mapping for stats report
 			grad_map = (1/(eta_comp))*(w_til - ProxEval(w_til - eta_comp*full_grad, lamb*eta_comp))
 			norm_grad_map = np.dot(grad_map.T, grad_map)
@@ -167,28 +159,26 @@ def prox_spbd(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_n
 
 			# update print time
 			last_print_num_grad = num_grad
-
+	
 		# Increase number of component gradient (1 full gradient = n component gradient)
-		num_grad += batch_size
-		num_epoch = num_grad / n
+		num_grad += n
+		num_epoch += 1
 
-		# First update in the outer loop
-		w_prev = w_til
-		w = ProxEval(w_til - eta*v_cur, lamb*eta)
+		# start the inner loop.
+		w = w_til
 
 		# Inner Loop
-		for iter in range(0 , max_inner):
+		for iter in range(0,max_inner):
 
 			# calculate stochastic gradient diff
-			grad_diff = GradDiffEval(n, d, inner_batch_size, X_train, Y_train, bias, w_prev, w, nnz_Xtrain)
+			grad_diff = GradDiffEval(n, d, batch_size, X_train, Y_train, bias, w_til, w, nnz_Xtrain)
 
 			# Increase number of component gradient
-			num_grad += 2*inner_batch_size
+			num_grad += 2*batch_size
 			num_epoch = num_grad / n
-				
+
 			# Algorithm update
-			w_prev = w
-			v_cur += grad_diff
+			v_cur = full_grad + grad_diff
 			w = ProxEval(w - eta*v_cur, lamb*eta)
 
 			if is_fun_eval and (num_grad - last_print_num_grad >= n or num_epoch >= max_num_epoch):
@@ -230,11 +220,11 @@ def prox_spbd(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_n
 				last_print_num_grad = num_grad
 
 				# check if we're done
-				if num_epoch >= max_num_epoch:
+				if num_epoch > max_num_epoch:
 					break
 
-		# move to the next outer iteration
-		w_til = w	
+		# Move to the next outer iteration
+		w_til = w
 
 	# Outer loop ends
 
