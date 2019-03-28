@@ -12,7 +12,8 @@ We hope that this program will be useful to others, and we would like to hear ab
 
 * N. H. Pham, L. M. Nguyen, D. T. Phan, and Q. Tran-Dinh, **[ProxSARAH: An Efficient Algorithmic Framework for Stochastic Composite Nonconvex Optimization](https://arxiv.org/abs/1902.05679)**, _arXiv preprint arXiv:1902.05679_, 2019.
 
-Feel free to send feedback and questions about the package to
+Feel free to send feedback and questions about the package to our maintainer Nhan H. Pham
+<nhanph@live.unc.edu>.
 
 ## Dependencies
 
