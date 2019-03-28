@@ -215,7 +215,7 @@ if (alg_list["ProxSARAH"] and prox_sarah_option['1']):
     hist_TrainLoss_prox_sarah1, hist_GradNorm_prox_sarah1, hist_MinGradNorm_prox_sarah1, \
     hist_TrainAcc_prox_sarah1, hist_TestAcc_prox_sarah1 = Prox_SARAH(x, y, x_train, y_train, x_test, y_test, eta_prox_sarah[0], eta_comp, lamb, gamma_prox_sarah[0],\
         num_examples, prox_sarah_inner_batch[0], max_num_epoch, max_inner_prox_sarah[0], \
-        w_list, loss_operation, accuracy_operation, source_path, prog_id, data_name, verbose, log_enable)
+        w_list, loss_operation, accuracy_operation, verbose, log_enable)
 
 # ProxSARAH-v1
 if (alg_list["ProxSARAH"] and prox_sarah_option['2']):
@@ -223,7 +223,7 @@ if (alg_list["ProxSARAH"] and prox_sarah_option['2']):
     hist_TrainLoss_prox_sarah2, hist_GradNorm_prox_sarah2, hist_MinGradNorm_prox_sarah2, \
     hist_TrainAcc_prox_sarah2, hist_TestAcc_prox_sarah2 = Prox_SARAH(x, y, x_train, y_train, x_test, y_test, eta_prox_sarah[1], eta_comp, lamb, gamma_prox_sarah[1],\
         num_examples, prox_sarah_inner_batch[1], max_num_epoch, max_inner_prox_sarah[1], \
-        w_list, loss_operation, accuracy_operation, source_path, prog_id, data_name, verbose, log_enable)
+        w_list, loss_operation, accuracy_operation, verbose, log_enable)
 
 # ProxSARAH-v2
 if (alg_list["ProxSARAH"] and prox_sarah_option['3']):
@@ -231,7 +231,7 @@ if (alg_list["ProxSARAH"] and prox_sarah_option['3']):
     hist_TrainLoss_prox_sarah3, hist_GradNorm_prox_sarah3, hist_MinGradNorm_prox_sarah3, \
     hist_TrainAcc_prox_sarah3, hist_TestAcc_prox_sarah3 = Prox_SARAH(x, y, x_train, y_train, x_test, y_test, eta_prox_sarah[2], eta_comp, lamb, gamma_prox_sarah[2],\
         num_examples, prox_sarah_inner_batch[2], max_num_epoch, max_inner_prox_sarah[2], \
-        w_list, loss_operation, accuracy_operation, source_path, prog_id, data_name, verbose, log_enable)
+        w_list, loss_operation, accuracy_operation, verbose, log_enable)
 
 # ProxSARAH-v3
 if (alg_list["ProxSARAH"] and prox_sarah_option['4']):
@@ -239,7 +239,7 @@ if (alg_list["ProxSARAH"] and prox_sarah_option['4']):
     hist_TrainLoss_prox_sarah4, hist_GradNorm_prox_sarah4, hist_MinGradNorm_prox_sarah4, \
     hist_TrainAcc_prox_sarah4, hist_TestAcc_prox_sarah4 = Prox_SARAH(x, y, x_train, y_train, x_test, y_test, eta_prox_sarah[3], eta_comp, lamb, gamma_prox_sarah[3],\
         num_examples, prox_sarah_inner_batch[3], max_num_epoch, max_inner_prox_sarah[3], \
-        w_list, loss_operation, accuracy_operation, source_path, prog_id, data_name, verbose, log_enable)
+        w_list, loss_operation, accuracy_operation, verbose, log_enable)
 
 # ProxSARAH-v4
 if (alg_list["ProxSARAH"] and prox_sarah_option['5']):
@@ -247,7 +247,7 @@ if (alg_list["ProxSARAH"] and prox_sarah_option['5']):
     hist_TrainLoss_prox_sarah5, hist_GradNorm_prox_sarah5, hist_MinGradNorm_prox_sarah5, \
     hist_TrainAcc_prox_sarah5, hist_TestAcc_prox_sarah5 = Prox_SARAH(x, y, x_train, y_train, x_test, y_test, eta_prox_sarah[4], eta_comp, lamb, gamma_prox_sarah[4],\
         num_examples, prox_sarah_inner_batch[4], max_num_epoch, max_inner_prox_sarah[4], \
-        w_list, loss_operation, accuracy_operation, source_path, prog_id, data_name, verbose, log_enable)
+        w_list, loss_operation, accuracy_operation, verbose, log_enable)
 
 # ProxSpiderBoost 
 if (alg_list["ProxSpiderBoost"]):
@@ -255,7 +255,7 @@ if (alg_list["ProxSpiderBoost"]):
     hist_GradNorm_prox_spdb, hist_MinGradNorm_prox_spdb, hist_TrainAcc_prox_spdb, hist_TestAcc_prox_spdb \
         = Prox_SPDBoost(x, y, x_train, y_train, x_test, y_test, eta_prox_spdb, eta_comp, lamb,\
         num_examples, prox_spdb_inner_batch_size, max_num_epoch, max_inner_prox_spdb, \
-        w_list, loss_operation, accuracy_operation, source_path, prog_id, data_name, verbose, log_enable)
+        w_list, loss_operation, accuracy_operation, verbose, log_enable)
 
 # ProxSVRG 
 if (alg_list["ProxSVRG"]):
@@ -264,7 +264,7 @@ if (alg_list["ProxSVRG"]):
         = Prox_SVRG(x, y, x_train, y_train, x_test,\
         y_test, prox_svrg_inner_batch, eta_prox_svrg, eta_comp, lamb, \
         max_num_epoch, max_inner_prox_svrg, w_list, w_list_dup, loss_operation, \
-        loss_operation_dup, accuracy_operation, source_path, prog_id, data_name, verbose, log_enable)
+        loss_operation_dup, accuracy_operation, verbose, log_enable)
 
 # ProxSGD 
 if (alg_list["ProxSGD"]):
@@ -272,7 +272,7 @@ if (alg_list["ProxSGD"]):
     hist_GradNorm_prox_sgd, hist_MinGradNorm_prox_sgd, hist_TrainAcc_prox_sgd, hist_TestAcc_prox_sgd \
         = Prox_SGD(x, y, x_train, y_train, x_test, y_test, \
         prox_sgd_batch_size, eta_prox_sgd, eta_prime_prox_sgd, eta_comp, lamb, max_num_epoch,\
-        w_list, loss_operation, accuracy_operation, source_path, prog_id, data_name, verbose, log_enable)
+        w_list, loss_operation, accuracy_operation, verbose, log_enable)
 
 # record time elapsed
 elapsed_train = time.time() - start_train
