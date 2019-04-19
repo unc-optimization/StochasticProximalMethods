@@ -2,7 +2,7 @@
 
 Implementation of ProxSGD algorithm presented in
 
-S. Ghadimi, G. Lan, and H. Zhang. Mini-batch stochastic approximation methods for nonconvex stochastic composite optimization. Math. Program., 155(1-2):267–305, 2016.
+* S. Ghadimi, G. Lan, and H. Zhang. **[Mini-batch stochastic approximation methods for nonconvex stochastic composite optimization](https://link.springer.com/article/10.1007/s10107-014-0846-1)**. Math. Program., 155(1-2):267–305, 2016.
 
 The algorithm is used to solve the nonconvex composite problem
     
