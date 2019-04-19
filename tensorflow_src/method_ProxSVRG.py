@@ -1,6 +1,8 @@
 """! @package method_ProxSVRG
 
-Implementation of ProxSVRG algorithm.
+Implementation of ProxSVRG algorithm presented in
+
+S. J. Reddi, S. Sra, B. Póczos, and A. J. Smola. Proximal stochastic methods for nonsmooth nonconvex finite-sum optimization. In Advances in Neural Information Processing Systems, pages 1145–1153, 2016b.
 
 The algorithm is used to solve the nonconvex composite problem
     

@@ -1,6 +1,8 @@
 """! @package method_ProxGD
 
-Implementation of ProxGD algorithm.
+Implementation of ProxGD algorithm presented in
+
+Y. Nesterov. Introductory lectures on convex optimization: A basic course, volume 87 of Applied Optimization. Kluwer Academic Publishers, 2004.
 
 The algorithm is used to solve the nonconvex composite problem
     

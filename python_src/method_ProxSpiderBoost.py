@@ -1,6 +1,8 @@
 """! @package method_ProxSpiderBoost
 
-Implementation of ProxSpiderBoost algorithm.
+Implementation of ProxSpiderBoost algorithm presented in 
+
+Z. Wang, K. Ji, Y. Zhou, Y. Liang, and V. Tarokh. SpiderBoost: A class of faster variance-reduced algorithms for nonconvex optimization. arXiv preprint arXiv:1810.10690, 2018.
 
 The algorithm is used to solve the nonconvex composite problem
     

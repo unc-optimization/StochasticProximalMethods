@@ -25,6 +25,7 @@ from keras import backend as K
 import sklearn as skl
 import numpy as np
 import matplotlib.pyplot as plt
+import time
 
 from utils import *
 from models import *
@@ -32,10 +33,10 @@ from argParser import *
 from load_data import *
 
 # import methods
-from method_Prox_SARAH import *
-from method_Prox_SPDB import *
-from method_Prox_SVRG import *
-from method_Prox_SGD import *
+from method_ProxSARAH import *
+from method_ProxSPDB import *
+from method_ProxSVRG import *
+from method_ProxSGD import *
 
 ## USAGE
 # python neural_net_example2s.py -d mnist -a 1234 -so 2345 -b 250 -ne 15
@@ -43,7 +44,7 @@ from method_Prox_SGD import *
 #==================================================================================================================
 
 # read arguments
-data_name, prog_option, alg_list, prox_sarah_option, prox_sarah_adaptive_option = argParser()
+data_name, prog_option, alg_list, prox_sarah_option = argParser()
 
 # get program parameters:
 plot_option     = prog_option["PlotOption"]
@@ -51,7 +52,6 @@ batch_size      = prog_option["BatchSize"]
 max_num_epochs  = prog_option["MaxNumEpoch"]
 verbose         = prog_option["Verbose"]
 log_enable      = prog_option["LogEnable"]
-prog_id         = prog_option["ProgID"]
 
 #==================================================================================================================
 ## import data
