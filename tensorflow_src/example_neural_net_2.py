@@ -1,6 +1,6 @@
-"""@package neural_net_example1
+"""@package neural_net_example2
 
-This package implements the feedforward neural network example with a fully connected neural network of size 784x100x10 for dataset "mnist" and "fashion_mnist".
+This package implements the feedforward neural network example with a fully connected neural network of size 784x800x10 for dataset "mnist" and "fashion_mnist".
 
 Copyright (c) 2019 Nhan H. Pham, Department of Statistics and Operations Research, University of North Carolina at Chapel Hill
 
@@ -39,7 +39,7 @@ from method_ProxSVRG import *
 from method_ProxSGD import *
 
 ## USAGE
-# python neural_net_example1.py -d mnist -a 1234 -so 2345 -b 250 -ne 15
+# python neural_net_example2s.py -d mnist -a 1234 -so 2345 -b 250 -ne 15
 
 #==================================================================================================================
 
@@ -87,7 +87,7 @@ y = tf.placeholder(tf.int32, (None, y_train.shape[1]))
 input_size = img_rows * img_cols * num_channel
 output_size = y_train.shape[1]
 # load models
-logits, logits_dup, w_list, w_list_dup = model1(x, input_size, output_size)
+logits, logits_dup, w_list, w_list_dup = model2(x, input_size, output_size)
 
 cross_entropy = tf.nn.softmax_cross_entropy_with_logits_v2(logits=logits, labels=tf.stop_gradient(y))
 loss_operation = tf.reduce_mean(cross_entropy)
@@ -109,9 +109,9 @@ num_examples = len(x_train)
 
 # Lipschitz constant
 if data_name == 'mnist':
-    L = 1.0 # mnist
+    L = 5.0 # mnist\
 elif data_name == 'fashion_mnist':
-    L = 4.0 # fashion_mnist
+    L = 11.0 # fashion_mnist
 
 if batch_size == 1:
     # ProxSVRG
@@ -126,9 +126,9 @@ if batch_size == 1:
 else:
     # ProxSPDB
     if data_name == 'mnist':
-        eta_prox_spdb = 0.12 # mnist
+        eta_prox_spdb = 0.16 # mnist
     elif data_name == 'fashion_mnist':
-        eta_prox_spdb = 0.15 # fashion_mnist
+        eta_prox_spdb = 0.05 # fashion_mnist
 
     prox_spdb_inner_batch_size = int(round(np.sqrt(num_examples)))
     max_inner_prox_spdb = num_examples // prox_spdb_inner_batch_size
@@ -137,7 +137,7 @@ else:
     if data_name == 'mnist':
         eta_prox_svrg = 0.2 # mnist
     elif data_name == 'fashion_mnist':
-        eta_prox_svrg = 0.11 # fashion_mnist
+        eta_prox_svrg = 0.09 # fashion_mnist
     
     prox_svrg_inner_batch = int(round(num_examples**(2.0/3.0)))
     max_inner_prox_svrg = num_examples // prox_svrg_inner_batch
@@ -156,8 +156,8 @@ eta_comp = 0.5
 max_num_epoch = max_num_epochs
 
 # params for ProxSARAH
-c = 1.0
-r = 1.0
+c = 0.01
+r = 100.0
 q = 2 + c + (1/r)
 omega = (q**2 + 8) / (q**2)
 rho = (1/batch_size) * ((num_examples  - batch_size) / (num_examples - 1.0)) * omega
@@ -276,7 +276,7 @@ if (alg_list["ProxSGD"]):
 
 # record time elapsed
 elapsed_train = time.time() - start_train
-print("Total training time: ", elapsed_train)
+print("\nTotal training time: {:^8.2f} seconds".format(elapsed_train))
 
 #=================================================================
 #=======================  Plot Process  ==========================

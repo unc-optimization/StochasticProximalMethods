@@ -45,7 +45,7 @@ pip install argParser matplotlib sklearn keras
 
 More information can be found by running the corresponding example script with option -h
 ```python
-python neural_net_example[1 or 2].py -h
+python example_neural_net_[1 or 2].py -h
 ```
 
 2. Running the examples:
@@ -53,5 +53,5 @@ python neural_net_example[1 or 2].py -h
 
 
 ```python
-python neural_net_example[1 or 2].py -d mnist -a 1234 -so 2345 -b 250 -ne 15
+python example_neural_net_[1 or 2].py -d mnist -a 1234 -so 2345 -b 250 -ne 15
 ```

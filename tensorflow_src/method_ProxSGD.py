@@ -247,12 +247,24 @@ def Prox_SGD(x, y, x_train, y_train, x_test, y_test, batch_size, LRinit, LRprime
             if grad_map_norm_square < min_grad_map_norm_square:
                 min_grad_map_norm_square = grad_map_norm_square
 
-            # print output
+            # print first time info
             if verbose:
-                print("Epoch:", num_epoch,"\nTraining Loss: ", train_loss)
-                print("Train Accuracy = {:.3f}".format(train_accuracy),"\nTest Accuracy = {:.3f}".format(test_accuracy))
-                print("||Gradient Mapping||^2 = {:.5e} ".format(grad_map_norm_square))
-                print("min ||Gradient Mapping||^2 = {:.5e} ".format(min_grad_map_norm_square), "\n")
+                print(
+                    ' {message:{fill}{align}{width}}'.format(message='',fill='=',align='^',width=87,),'\n',
+                    '{message:{fill}{align}{width}}'.format(message='Epoch',fill=' ',align='^',width=15,),'|',
+                    '{message:{fill}{align}{width}}'.format(message='Train Loss',fill=' ',align='^',width=15,),'|',
+                    '{message:{fill}{align}{width}}'.format(message='||Grad Map||^2',fill=' ',align='^',width=15,),'|',
+                    '{message:{fill}{align}{width}}'.format(message='Train Acc',fill=' ',align='^',width=15,),'|',
+                    '{message:{fill}{align}{width}}'.format(message='Test Acc',fill=' ',align='^',width=15,),'\n',
+                    '{message:{fill}{align}{width}}'.format(message='',fill='-',align='^',width=87,)
+                )
+                print(
+                        '{:^16.4f}'.format(num_epoch),'|',
+                        '{:^15.3e}'.format(train_loss),'|',
+                        '{:^15.3e}'.format(grad_map_norm_square),'|',
+                        '{:^15.5f}'.format(train_accuracy),'|',
+                        '{:^13.5f}'.format(test_accuracy),'|',
+                    )
 
             # update history
             hist_TrainLoss.append(train_loss)
@@ -303,13 +315,20 @@ def Prox_SGD(x, y, x_train, y_train, x_test, y_test, batch_size, LRinit, LRprime
             # ProxSGD Update
             sess.run(trainer_update_w, feed_dict={lr: LR, lbd: LBD})
             
-            if log_enable and num_grad - last_print_num_grad >= 3*num_examples:
+            if log_enable and (num_grad - last_print_num_grad >= num_examples or num_epoch >= MAX_TOTAL_EPOCH):
                 # calculate loss, test accuracy
                 sess.run(trainer_set_norm_l1_w_to_zero)
                 sess.run(trainer_calc_norm_l1_w)
                 train_loss = sess.run(loss_operation, feed_dict={x: x_train, y: y_train}) + LBD * sess.run(norm_l1_w)
                 train_accuracy = sess.run(accuracy_operation, feed_dict = {x: x_train, y: y_train})
                 test_accuracy = sess.run(accuracy_operation, feed_dict = {x: x_test, y: y_test})
+
+                # Compute full gradient
+                sess.run(trainer_set_v0_to_zero)
+                for j in range(num_batches_grad_full): 
+                    batch_X = x_train[bs*j:bs*(j+1)]
+                    batch_Y = y_train[bs*j:bs*(j+1)]
+                    sess.run(trainer_add_grad_to_v0, feed_dict={x: batch_X, y: batch_Y, scale: scale_full})
 
                 # Compute full gradient
                 sess.run(trainer_set_v0_to_zero)
@@ -328,12 +347,15 @@ def Prox_SGD(x, y, x_train, y_train, x_test, y_test, batch_size, LRinit, LRprime
                 if grad_map_norm_square < min_grad_map_norm_square:
                     min_grad_map_norm_square = grad_map_norm_square
 
-                # print output
+                # print info
                 if verbose:
-                    print("Epoch:", num_epoch,"\nTraining Loss: ", train_loss)
-                    print("Train Accuracy = {:.3f}".format(train_accuracy),"\nTest Accuracy = {:.3f}".format(test_accuracy))
-                    print("||Gradient Mapping||^2 = {:.5e} ".format(grad_map_norm_square))
-                    print("min ||Gradient Mapping||^2 = {:.5e} ".format(min_grad_map_norm_square), "\n")
+                    print(
+                        '{:^16.4f}'.format(num_epoch),'|',
+                        '{:^15.3e}'.format(train_loss),'|',
+                        '{:^15.3e}'.format(grad_map_norm_square),'|',
+                        '{:^15.5f}'.format(train_accuracy),'|',
+                        '{:^13.5f}'.format(test_accuracy),'|',
+                    )
 
                 # update history
                 hist_TrainLoss.append(train_loss)
@@ -348,49 +370,6 @@ def Prox_SGD(x, y, x_train, y_train, x_test, y_test, batch_size, LRinit, LRprime
                 last_print_num_grad = num_grad
 
         #end main loop
-
-        # calculate loss, test accuracy
-        sess.run(trainer_set_norm_l1_w_to_zero)
-        sess.run(trainer_calc_norm_l1_w)
-        train_loss = sess.run(loss_operation, feed_dict={x: x_train, y: y_train}) + LBD * sess.run(norm_l1_w)
-        train_accuracy = sess.run(accuracy_operation, feed_dict = {x: x_train, y: y_train})
-        test_accuracy = sess.run(accuracy_operation, feed_dict = {x: x_test, y: y_test})
-
-        # Compute full gradient
-        sess.run(trainer_set_v0_to_zero)
-        for j in range(num_batches_grad_full): 
-            batch_X = x_train[bs*j:bs*(j+1)]
-            batch_Y = y_train[bs*j:bs*(j+1)]
-            sess.run(trainer_add_grad_to_v0, feed_dict={x: batch_X, y: batch_Y, scale: scale_full})
-        
-        # compute gradient mapping
-        sess.run(trainer_update_grad_map, feed_dict = {lr: LR_COMP, lbd: LBD})
-        sess.run(trainer_set_norm_grad_map_to_zero)
-        sess.run(trainer_calc_norm_grad_map_sq)
-        grad_map_norm_square = sess.run(norm_grad_map_sq)
-
-        # update mins
-        if grad_map_norm_square < min_grad_map_norm_square:
-            min_grad_map_norm_square = grad_map_norm_square
-
-        # print output
-        if verbose:
-            print("Epoch:", num_epoch,"\nTraining Loss: ", train_loss)
-            print("Train Accuracy = {:.3f}".format(train_accuracy),"\nTest Accuracy = {:.3f}".format(test_accuracy))
-            print("||Gradient Mapping||^2 = {:.5e} ".format(grad_map_norm_square))
-            print("min ||Gradient Mapping||^2 = {:.5e} ".format(min_grad_map_norm_square), "\n")
-
-        # update history
-        hist_TrainLoss.append(train_loss)
-        hist_GradNorm.append(np.asscalar(grad_map_norm_square))
-        hist_MinGradNorm.append(min_grad_map_norm_square)
-        hist_NumEpoch.append(num_epoch)
-        hist_NumGrad.append(num_grad)
-        hist_TrainAcc.append(train_accuracy)
-        hist_TestAcc.append(test_accuracy)
-
-        # update print time
-        last_print_num_grad = num_grad
 
         # save solution
         for w in w_list:
