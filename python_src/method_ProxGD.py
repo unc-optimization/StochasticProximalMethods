@@ -139,10 +139,31 @@ def prox_gd(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_num
 	
 		# print info
 		if verbose:
-			print("Epoch:", num_epoch, "\nTraining Loss: ", train_loss)
+			print(
+				' {message:{fill}{align}{width}}'.format(message='',fill='=',align='^',width=87,),'\n',
+				'{message:{fill}{align}{width}}'.format(message='Epoch',fill=' ',align='^',width=15,),'|',
+				'{message:{fill}{align}{width}}'.format(message='Train Loss',fill=' ',align='^',width=15,),'|',
+				'{message:{fill}{align}{width}}'.format(message='||Grad Map||^2',fill=' ',align='^',width=15,),'|',
+				'{message:{fill}{align}{width}}'.format(message='Train Acc',fill=' ',align='^',width=15,),'|',
+				'{message:{fill}{align}{width}}'.format(message='Test Acc',fill=' ',align='^',width=15,),'\n',
+				'{message:{fill}{align}{width}}'.format(message='',fill='-',align='^',width=87,)
+			)
 			if isAccEval:
-				print("Train Accuracy = {:.3f}".format(train_accuracy), "\nTest Accuracy = {:.3f}".format(test_accuracy))
-			print("||Gradient mapping||^2: ", norm_grad_map, "\nmin ||Gradient Mapping||^2: ", min_norm_grad_map, "\n")
+				print(
+					'{:^16.4f}'.format(num_epoch),'|',
+					'{:^15.3e}'.format(train_loss),'|',
+					'{:^15.3e}'.format(norm_grad_map),'|',
+					'{:^15.5f}'.format(train_accuracy),'|',
+					'{:^13.5f}'.format(test_accuracy),'|',
+				)
+			else:
+				print(
+					'{:^16.4f}'.format(num_epoch),'|',
+					'{:^15.3e}'.format(train_loss),'|',
+					'{:^15.3e}'.format(norm_grad_map),'|',
+					'{message:{fill}{align}{width}}'.format(message='N/A',fill=' ',align='^',width=15,),'|',
+					'{message:{fill}{align}{width}}'.format(message='N/A',fill=' ',align='^',width=13,),'|',
+				)	
 
 		# update history if requires
 		hist_TrainLoss.append(train_loss)
@@ -188,10 +209,22 @@ def prox_gd(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_num
 		
 			# print info
 			if verbose:
-				print("Epoch:", num_epoch, "\nTraining Loss: ", train_loss)
 				if isAccEval:
-					print("Train Accuracy = {:.3f}".format(train_accuracy), "\nTest Accuracy = {:.3f}".format(test_accuracy))
-				print("||Gradient mapping||^2: ", norm_grad_map, "\nmin ||Gradient Mapping||^2: ", min_norm_grad_map, "\n")
+					print(
+						'{:^16.4f}'.format(num_epoch),'|',
+						'{:^15.3e}'.format(train_loss),'|',
+						'{:^15.3e}'.format(norm_grad_map),'|',
+						'{:^15.5f}'.format(train_accuracy),'|',
+						'{:^13.5f}'.format(test_accuracy),'|',
+					)
+				else:
+					print(
+						'{:^16.4f}'.format(num_epoch),'|',
+						'{:^15.3e}'.format(train_loss),'|',
+						'{:^15.3e}'.format(norm_grad_map),'|',
+						'{message:{fill}{align}{width}}'.format(message='N/A',fill=' ',align='^',width=15,),'|',
+						'{message:{fill}{align}{width}}'.format(message='N/A',fill=' ',align='^',width=13,),'|',
+					)	
 
 			# update history if requires
 			hist_TrainLoss.append(train_loss)
