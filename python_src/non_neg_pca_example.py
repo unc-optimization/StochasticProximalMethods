@@ -291,7 +291,7 @@ if (alg_list["ProxSARAH"] and prox_sarah_option['1']):
 			GradDiffEval, FuncF_Eval, ProxEval, FuncG_Eval, Acc_Eval, isAccEval, verbose, log_enable)
 
 	elapsed_prox_sarah1 = time.time() - start_prox_sarah1
-	print("\nTraining time (ProxSARAH single sample): ", elapsed_prox_sarah1, "\n")
+	print("\nTraining time (ProxSARAH single sample): {:^8.2f} seconds\n".format(elapsed_prox_sarah1))
 
 # ProxSARAH-v1
 if (alg_list["ProxSARAH"] and prox_sarah_option['2']):
@@ -306,7 +306,7 @@ if (alg_list["ProxSARAH"] and prox_sarah_option['2']):
 			GradEval, GradDiffEval, FuncF_Eval, ProxEval, FuncG_Eval, Acc_Eval, isAccEval, verbose, log_enable)
 
 	elapsed_prox_sarah2 = time.time() - start_prox_sarah2
-	print("\nTraining time (ProxSARAH-v1): ", elapsed_prox_sarah2, "\n")
+	print("\nTraining time (ProxSARAH-v1): {:^8.2f} seconds\n".format(elapsed_prox_sarah2))
 
 # ProxSARAH-v2
 if (alg_list["ProxSARAH"] and prox_sarah_option['3']):
@@ -321,7 +321,7 @@ if (alg_list["ProxSARAH"] and prox_sarah_option['3']):
 			GradEval, GradDiffEval, FuncF_Eval, ProxEval, FuncG_Eval, Acc_Eval, isAccEval, verbose, log_enable)
 
 	elapsed_prox_sarah3 = time.time() - start_prox_sarah3
-	print("\nTraining time (ProxSARAH-v2): ", elapsed_prox_sarah3, "\n")
+	print("\nTraining time (ProxSARAH-v2): {:^8.2f} seconds\n".format(elapsed_prox_sarah3))
 
 # ProxSARAH-v3
 if (alg_list["ProxSARAH"] and prox_sarah_option['4']):
@@ -336,7 +336,7 @@ if (alg_list["ProxSARAH"] and prox_sarah_option['4']):
 			GradEval, GradDiffEval, FuncF_Eval, ProxEval, FuncG_Eval, Acc_Eval, isAccEval, verbose, log_enable)
 
 	elapsed_prox_sarah4 = time.time() - start_prox_sarah4
-	print("\nTraining time (ProxSARAH-v3): ", elapsed_prox_sarah4, "\n")
+	print("\nTraining time (ProxSARAH-v3): {:^8.2f} seconds\n".format(elapsed_prox_sarah4))
 
 # ProxSARAH-v4
 if (alg_list["ProxSARAH"] and prox_sarah_option['5']):
@@ -351,7 +351,7 @@ if (alg_list["ProxSARAH"] and prox_sarah_option['5']):
 			GradEval, GradDiffEval, FuncF_Eval, ProxEval, FuncG_Eval, Acc_Eval, isAccEval, verbose, log_enable)
 
 	elapsed_prox_sarah5 = time.time() - start_prox_sarah5
-	print("\nTraining time (ProxSARAH-v4): ", elapsed_prox_sarah5, "\n")
+	print("\nTraining time (ProxSARAH-v4): {:^8.2f} seconds\n".format(elapsed_prox_sarah5))
 
 # ProxSARAH-A-v1
 if (alg_list["ProxSARAHAdaptive"] and prox_sarah_adaptive_option['1']):
@@ -366,7 +366,7 @@ if (alg_list["ProxSARAHAdaptive"] and prox_sarah_adaptive_option['1']):
 			GradEval, GradDiffEval, FuncF_Eval, ProxEval, FuncG_Eval, Acc_Eval, isAccEval, verbose, log_enable)
 
 	elapsed_prox_sarah_adaptive1 = time.time() - start_prox_sarah_adaptive1
-	print("\nTraining time (ProxSARAH-A-v1): ", elapsed_prox_sarah_adaptive1, "\n")
+	print("\nTraining time (ProxSARAH-A-v1): {:^8.2f} seconds\n".format(elapsed_prox_sarah_adaptive1))
 
 # ProxSARAH-A-v2
 if (alg_list["ProxSARAHAdaptive"] and prox_sarah_adaptive_option['2']):
@@ -381,7 +381,7 @@ if (alg_list["ProxSARAHAdaptive"] and prox_sarah_adaptive_option['2']):
 			GradEval, GradDiffEval, FuncF_Eval, ProxEval, FuncG_Eval, Acc_Eval, isAccEval, verbose, log_enable)
 
 	elapsed_prox_sarah_adaptive2 = time.time() - start_prox_sarah_adaptive2
-	print("\nTraining time (ProxSARAH-A-v2): ", elapsed_prox_sarah_adaptive2, "\n")
+	print("\nTraining time (ProxSARAH-A-v2): {:^8.2f} seconds\n".format(elapsed_prox_sarah_adaptive2))
 
 # ProxSARAH-A-v3
 if (alg_list["ProxSARAHAdaptive"] and prox_sarah_adaptive_option['3']):
@@ -396,8 +396,7 @@ if (alg_list["ProxSARAHAdaptive"] and prox_sarah_adaptive_option['3']):
 			GradEval, GradDiffEval, FuncF_Eval, ProxEval, FuncG_Eval, Acc_Eval, isAccEval, verbose, log_enable)
 
 	elapsed_prox_sarah_adaptive3 = time.time() - start_prox_sarah_adaptive3
-	print("\nTraining time (ProxSARAH-A-v3): ", elapsed_prox_sarah_adaptive3, "\n")
-
+	print("\nTraining time (ProxSARAH-A-v3): {:^8.2f} seconds\n".format(elapsed_prox_sarah_adaptive3))
 
 # ProxSpiderBoost 
 if (alg_list["ProxSpiderBoost"]):
@@ -411,7 +410,7 @@ if (alg_list["ProxSpiderBoost"]):
 			GradEval, GradDiffEval, FuncF_Eval, ProxEval, FuncG_Eval, Acc_Eval, isAccEval, verbose, log_enable)
 
 	elapsed_prox_spdb = time.time() - start_prox_spdb
-	print("\nTraining time (ProxSpiderBoost): ", elapsed_prox_spdb, "\n")
+	print("\nTraining time (ProxSpiderBoost): {:^8.2f} seconds\n".format(elapsed_prox_spdb))
 
 # ProxSVRG 
 if (alg_list["ProxSVRG"]):
@@ -425,7 +424,7 @@ if (alg_list["ProxSVRG"]):
 			GradDiffEval, FuncF_Eval, ProxEval, FuncG_Eval, Acc_Eval, isAccEval, verbose, log_enable)
 
 	elapsed_prox_svrg = time.time() - start_prox_svrg
-	print("\nTraining time (ProxSVRG): ", elapsed_prox_svrg, "\n")
+	print("\nTraining time (ProxSVRG): {:^8.2f} seconds\n".format(elapsed_prox_svrg))
 
 # ProxSGD 
 if (alg_list["ProxSGD"]):
@@ -439,7 +438,7 @@ if (alg_list["ProxSGD"]):
 			FuncF_Eval, ProxEval, FuncG_Eval, Acc_Eval, isAccEval, verbose, log_enable)
 	
 	elapsed_prox_sgd = time.time() - start_prox_sgd
-	print("\nTraining time (ProxSGD): ", elapsed_prox_sgd, "\n")
+	print("\nTraining time (ProxSGD): {:^8.2f} seconds\n".format(elapsed_prox_sgd))
 
 # ProxGD
 if (alg_list["ProxGD"]):
@@ -453,11 +452,11 @@ if (alg_list["ProxGD"]):
 			FuncG_Eval, Acc_Eval, isAccEval, verbose, log_enable)
 
 	elapsed_prox_gd = time.time() - start_prox_gd
-	print("\nTraining time (ProxGD): ", elapsed_prox_gd, "\n")
+	print("\nTraining time (ProxGD): {:^8.2f} seconds\n".format(elapsed_prox_gd))
 
 # record time elapsed
 elapsed_train = time.time() - start_train
-print("Total training time: ", elapsed_train)
+print("Total training time: {:^8.2f} seconds\n".format(elapsed_train))
 
 #=================================================================
 #=======================  Plot Process  ==========================
