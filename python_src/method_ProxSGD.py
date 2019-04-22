@@ -112,7 +112,24 @@ def prox_sgd(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_prime, eta_c
 
 	# print initial message
 	if verbose:
-		print('Start ProxSGD...', '\neta0 = ', eta, '\neta\' = ',eta_prime, '\nBatch size = ' , batch_size)
+		print('Start ProxSGD...')
+		print(
+			' {message:{fill}{align}{width}}'.format(message='',fill='=',align='^',width=63,),'\n',
+			'{message:{fill}{align}{width}}'.format(message='eta',fill=' ',align='^',width=13,),'|',
+			'{message:{fill}{align}{width}}'.format(message='eta_prime',fill=' ',align='^',width=13,),'|',
+			'{message:{fill}{align}{width}}'.format(message='lambda',fill=' ',align='^',width=15,),'|',
+			'{message:{fill}{align}{width}}'.format(message='Batch Size',fill=' ',align='^',width=13,),'\n',
+			'{message:{fill}{align}{width}}'.format(message='',fill='-',align='^',width=63,)
+		)
+		print(
+				'{:^14.2f}'.format(eta),'|',
+				'{:^13.1f}'.format(eta_prime),'|',
+				'{:^15.3e}'.format(lamb),'|',
+				'{:^12d}'.format(batch_size)
+			)
+		print(
+			' {message:{fill}{align}{width}}'.format(message='',fill='=',align='^',width=63,),'\n',
+			)
 	
 	# Assign initial value
 	w = w0
@@ -152,7 +169,7 @@ def prox_sgd(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_prime, eta_c
 					'{:^15.3e}'.format(train_loss),'|',
 					'{:^15.3e}'.format(norm_grad_map),'|',
 					'{:^15.5f}'.format(train_accuracy),'|',
-					'{:^13.5f}'.format(test_accuracy),'|',
+					'{:^13.5f}'.format(test_accuracy)
 				)
 			else:
 				print(
@@ -160,7 +177,7 @@ def prox_sgd(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_prime, eta_c
 					'{:^15.3e}'.format(train_loss),'|',
 					'{:^15.3e}'.format(norm_grad_map),'|',
 					'{message:{fill}{align}{width}}'.format(message='N/A',fill=' ',align='^',width=15,),'|',
-					'{message:{fill}{align}{width}}'.format(message='N/A',fill=' ',align='^',width=13,),'|',
+					'{message:{fill}{align}{width}}'.format(message='N/A',fill=' ',align='^',width=13,)
 				)	
 
 		# update history if requires
@@ -220,7 +237,7 @@ def prox_sgd(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_prime, eta_c
 						'{:^15.3e}'.format(train_loss),'|',
 						'{:^15.3e}'.format(norm_grad_map),'|',
 						'{:^15.5f}'.format(train_accuracy),'|',
-						'{:^13.5f}'.format(test_accuracy),'|',
+						'{:^13.5f}'.format(test_accuracy)
 					)
 				else:
 					print(
@@ -228,7 +245,7 @@ def prox_sgd(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_prime, eta_c
 						'{:^15.3e}'.format(train_loss),'|',
 						'{:^15.3e}'.format(norm_grad_map),'|',
 						'{message:{fill}{align}{width}}'.format(message='N/A',fill=' ',align='^',width=15,),'|',
-						'{message:{fill}{align}{width}}'.format(message='N/A',fill=' ',align='^',width=13,),'|',
+						'{message:{fill}{align}{width}}'.format(message='N/A',fill=' ',align='^',width=13,)
 					)	
 
 			# update history if requires
@@ -248,6 +265,7 @@ def prox_sgd(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_prime, eta_c
 				break
 
 	# Main loop ends
+	print(' {message:{fill}{align}{width}}'.format(message='',fill='=',align='^',width=87,))
 	
 	return w, hist_NumGrad, hist_NumEpoch, hist_TrainLoss, hist_GradNorm, hist_MinGradNorm, hist_TrainAcc, hist_TestAcc
 

@@ -113,7 +113,23 @@ def prox_sarah(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_
 	# print initial message
 	if verbose:
 		print('Start Prox SARAH ...')
-		print('eta = ', eta, '\ngamma = ', gamma, '\nlambda = ', lamb, '\nInner Batch Size= ', inner_batch_size)
+		print(
+			' {message:{fill}{align}{width}}'.format(message='',fill='=',align='^',width=70,),'\n',
+			'{message:{fill}{align}{width}}'.format(message='eta',fill=' ',align='^',width=13,),'|',
+			'{message:{fill}{align}{width}}'.format(message='gamma',fill=' ',align='^',width=13,),'|',
+			'{message:{fill}{align}{width}}'.format(message='lambda',fill=' ',align='^',width=15,),'|',
+			'{message:{fill}{align}{width}}'.format(message='Inner Batch Size',fill=' ',align='^',width=20,),'\n',
+			'{message:{fill}{align}{width}}'.format(message='',fill='-',align='^',width=70,)
+		)
+		print(
+				'{:^14.3e}'.format(eta),'|',
+				'{:^13.2f}'.format(gamma),'|',
+				'{:^15.3e}'.format(lamb),'|',
+				'{:^19d}'.format(inner_batch_size)
+			)
+		print(
+			' {message:{fill}{align}{width}}'.format(message='',fill='=',align='^',width=70,),'\n',
+			)
 
 	# Assign initial value
 	w_til = w0
@@ -129,6 +145,7 @@ def prox_sarah(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_
 			'{message:{fill}{align}{width}}'.format(message='Test Acc',fill=' ',align='^',width=15,),'\n',
 			'{message:{fill}{align}{width}}'.format(message='',fill='-',align='^',width=87,)
 		)
+
 	
 	# Outer Loop
 	while num_epoch < max_num_epoch:
@@ -278,6 +295,9 @@ def prox_sarah(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_
 		# Go back to the outer loop.
 		w_til = w
 	# Outer loop ends
+	print(
+			' {message:{fill}{align}{width}}'.format(message='',fill='=',align='^',width=87,)
+		)
 
 	return w, hist_NumGrad, hist_NumEpoch, hist_TrainLoss, hist_GradNorm, hist_MinGradNorm, hist_TrainAcc, hist_TestAcc
 

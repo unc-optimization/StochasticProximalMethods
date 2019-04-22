@@ -110,7 +110,20 @@ def prox_gd(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_num
 
 	# print initial message
 	if verbose:
-		print('Start ProxGD...', '\neta = ', eta)
+		print('Start ProxGD...')
+		print(
+			' {message:{fill}{align}{width}}'.format(message='',fill='=',align='^',width=32,),'\n',
+			'{message:{fill}{align}{width}}'.format(message='eta',fill=' ',align='^',width=13,),'|',
+			'{message:{fill}{align}{width}}'.format(message='lambda',fill=' ',align='^',width=15,),'\n',
+			'{message:{fill}{align}{width}}'.format(message='',fill='-',align='^',width=32,)
+		)
+		print(
+				'{:^14.3e}'.format(eta),'|',
+				'{:^15.3e}'.format(lamb)
+			)
+		print(
+			' {message:{fill}{align}{width}}'.format(message='',fill='=',align='^',width=32,),'\n',
+			)
 	
 	# Assign initial value
 	w = w0
@@ -154,7 +167,7 @@ def prox_gd(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_num
 					'{:^15.3e}'.format(train_loss),'|',
 					'{:^15.3e}'.format(norm_grad_map),'|',
 					'{:^15.5f}'.format(train_accuracy),'|',
-					'{:^13.5f}'.format(test_accuracy),'|',
+					'{:^13.5f}'.format(test_accuracy)
 				)
 			else:
 				print(
@@ -162,7 +175,7 @@ def prox_gd(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_num
 					'{:^15.3e}'.format(train_loss),'|',
 					'{:^15.3e}'.format(norm_grad_map),'|',
 					'{message:{fill}{align}{width}}'.format(message='N/A',fill=' ',align='^',width=15,),'|',
-					'{message:{fill}{align}{width}}'.format(message='N/A',fill=' ',align='^',width=13,),'|',
+					'{message:{fill}{align}{width}}'.format(message='N/A',fill=' ',align='^',width=13,)
 				)	
 
 		# update history if requires
@@ -215,7 +228,7 @@ def prox_gd(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_num
 						'{:^15.3e}'.format(train_loss),'|',
 						'{:^15.3e}'.format(norm_grad_map),'|',
 						'{:^15.5f}'.format(train_accuracy),'|',
-						'{:^13.5f}'.format(test_accuracy),'|',
+						'{:^13.5f}'.format(test_accuracy)
 					)
 				else:
 					print(
@@ -223,7 +236,7 @@ def prox_gd(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_num
 						'{:^15.3e}'.format(train_loss),'|',
 						'{:^15.3e}'.format(norm_grad_map),'|',
 						'{message:{fill}{align}{width}}'.format(message='N/A',fill=' ',align='^',width=15,),'|',
-						'{message:{fill}{align}{width}}'.format(message='N/A',fill=' ',align='^',width=13,),'|',
+						'{message:{fill}{align}{width}}'.format(message='N/A',fill=' ',align='^',width=13,)
 					)	
 
 			# update history if requires
@@ -236,6 +249,8 @@ def prox_gd(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_num
 			hist_NumGrad.append(num_grad)
 			hist_NumEpoch.append(num_epoch)
 	# Main loop ends
+
+	print(' {message:{fill}{align}{width}}'.format(message='',fill='=',align='^',width=87,))
 	
 	return w, hist_NumGrad, hist_NumEpoch, hist_TrainLoss, hist_GradNorm, hist_MinGradNorm, hist_TrainAcc, hist_TestAcc
 

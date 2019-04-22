@@ -119,7 +119,23 @@ def prox_sarah_adaptive(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_c
     # print initial message
     if verbose:
         print('Start ProxSARAH-Adaptive...')
-        print('eta = ', eta, '\nlambda = ', lamb, '\nInner Batch Size = ', inner_batch_size)
+        # print('eta = ', eta, '\nlambda = ', lamb, '\nInner Batch Size = ', inner_batch_size)
+
+        print(
+            ' {message:{fill}{align}{width}}'.format(message='',fill='=',align='^',width=57,),'\n',
+            '{message:{fill}{align}{width}}'.format(message='eta',fill=' ',align='^',width=13,),'|',
+            '{message:{fill}{align}{width}}'.format(message='lambda',fill=' ',align='^',width=15,),'|',
+            '{message:{fill}{align}{width}}'.format(message='Inner Batch Size',fill=' ',align='^',width=21,),'\n',
+            '{message:{fill}{align}{width}}'.format(message='',fill='-',align='^',width=57,)
+        )
+        print(
+                '{:^14.3e}'.format(eta),'|',
+                '{:^15.3e}'.format(lamb),'|',
+                '{:^21d}'.format(inner_batch_size)
+            )
+        print(
+            ' {message:{fill}{align}{width}}'.format(message='',fill='=',align='^',width=57,),'\n',
+            )
 
     # Assign initial value
     w_til = w0
@@ -187,7 +203,7 @@ def prox_sarah_adaptive(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_c
                         '{:^15.3e}'.format(train_loss),'|',
                         '{:^15.3e}'.format(norm_grad_map),'|',
                         '{:^15.5f}'.format(train_accuracy),'|',
-                        '{:^13.5f}'.format(test_accuracy),'|',
+                        '{:^13.5f}'.format(test_accuracy)
                     )
                 else:
                     print(
@@ -195,7 +211,7 @@ def prox_sarah_adaptive(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_c
                         '{:^15.3e}'.format(train_loss),'|',
                         '{:^15.3e}'.format(norm_grad_map),'|',
                         '{message:{fill}{align}{width}}'.format(message='N/A',fill=' ',align='^',width=15,),'|',
-                        '{message:{fill}{align}{width}}'.format(message='N/A',fill=' ',align='^',width=13,),'|',
+                        '{message:{fill}{align}{width}}'.format(message='N/A',fill=' ',align='^',width=13,)
                     )   
 
             # update history if requires
@@ -262,7 +278,7 @@ def prox_sarah_adaptive(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_c
                             '{:^15.3e}'.format(train_loss),'|',
                             '{:^15.3e}'.format(norm_grad_map),'|',
                             '{:^15.5f}'.format(train_accuracy),'|',
-                            '{:^13.5f}'.format(test_accuracy),'|',
+                            '{:^13.5f}'.format(test_accuracy)
                         )
                     else:
                         print(
@@ -270,7 +286,7 @@ def prox_sarah_adaptive(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_c
                             '{:^15.3e}'.format(train_loss),'|',
                             '{:^15.3e}'.format(norm_grad_map),'|',
                             '{message:{fill}{align}{width}}'.format(message='N/A',fill=' ',align='^',width=15,),'|',
-                            '{message:{fill}{align}{width}}'.format(message='N/A',fill=' ',align='^',width=13,),'|',
+                            '{message:{fill}{align}{width}}'.format(message='N/A',fill=' ',align='^',width=13,)
                         )   
 
                 # update history if requires

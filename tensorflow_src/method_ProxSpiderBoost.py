@@ -35,6 +35,7 @@ import tensorflow as tf
 import numpy as np
 import random
 import pandas as pd
+import math
 
 from utils import *
 
@@ -211,15 +212,29 @@ def Prox_SPDBoost(x, y, x_train, y_train, x_test, y_test, LR, LR_COMP, LBD, grad
 
         # setup batch size to compute full/batch gradient
         bs = 128 
-        num_batches_grad_full   = num_examples // bs
-        num_batches_grad_batch  = grad_batch_size // bs
+        num_batches_grad_full   = math.ceil( num_examples  / bs )
+        num_batches_grad_batch  = math.ceil( grad_batch_size  / bs )
 
         scale_full  = 1/ (num_batches_grad_full + 0.0)
         scale_batch = 1/ (num_batches_grad_batch + 0.0)
         
         # print initial message
-        print("Training using ProxSpiderBoost...")
-        print('learning rate = {:.3e}'.format(LR), '\nlambda = {:.3e}'.format(LBD), '\ninner batch = ',inner_batch_size, '\n')        
+        print("Training using ProxSpiderBoost...")    
+        print(
+            ' {message:{fill}{align}{width}}'.format(message='',fill='=',align='^',width=56,),'\n',
+            '{message:{fill}{align}{width}}'.format(message='eta',fill=' ',align='^',width=13,),'|',
+            '{message:{fill}{align}{width}}'.format(message='lambda',fill=' ',align='^',width=15,),'|',
+            '{message:{fill}{align}{width}}'.format(message='Inner Batch Size',fill=' ',align='^',width=20,),'\n',
+            '{message:{fill}{align}{width}}'.format(message='',fill='-',align='^',width=56,)
+        )
+        print(
+                '{:^14.3e}'.format(LR),'|',
+                '{:^15.3e}'.format(LBD),'|',
+                '{:^19d}'.format(inner_batch_size)
+            )
+        print(
+            ' {message:{fill}{align}{width}}'.format(message='',fill='=',align='^',width=56,),'\n',
+            )   
         
         # initialize stats variables
         min_grad_map_norm_square   = 1.0e6
@@ -306,7 +321,7 @@ def Prox_SPDBoost(x, y, x_train, y_train, x_test, y_test, LR, LR_COMP, LBD, grad
                         '{:^15.3e}'.format(train_loss),'|',
                         '{:^15.3e}'.format(grad_map_norm_square),'|',
                         '{:^15.5f}'.format(train_accuracy),'|',
-                        '{:^13.5f}'.format(test_accuracy),'|',
+                        '{:^13.5f}'.format(test_accuracy)
                     )
 
                 # update history
@@ -390,7 +405,7 @@ def Prox_SPDBoost(x, y, x_train, y_train, x_test, y_test, LR, LR_COMP, LBD, grad
                             '{:^15.3e}'.format(train_loss),'|',
                             '{:^15.3e}'.format(grad_map_norm_square),'|',
                             '{:^15.5f}'.format(train_accuracy),'|',
-                            '{:^13.5f}'.format(test_accuracy),'|',
+                            '{:^13.5f}'.format(test_accuracy)
                         )
 
                     # update history
@@ -413,6 +428,7 @@ def Prox_SPDBoost(x, y, x_train, y_train, x_test, y_test, LR, LR_COMP, LBD, grad
             sess.run(trainer_update_w, feed_dict={lr: LR, lbd: LBD})
             
         #end outer loop
+        print(' {message:{fill}{align}{width}}'.format(message='',fill='=',align='^',width=87,))
         
         # save solution
         for w in w_list:

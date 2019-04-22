@@ -36,7 +36,7 @@ import numpy as np
 #===============================================================================================================================
 # ProxSVRG
 
-def prox_svrg(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_num_epoch, max_inner, w0, lamb, batch_size, \
+def prox_svrg(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_num_epoch, max_inner, w0, lamb, inner_batch_size, \
 							GradEval, GradDiffEval, FuncF_Eval, ProxEval, FuncG_Eval, Acc_Eval, isAccEval, verbose = 0, is_fun_eval = 1):
 
 	"""! ProxSVRG algorithm
@@ -56,7 +56,7 @@ def prox_svrg(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_n
 	@param max_inner : maximum number of inner loop's iterations
 	@param w0 : initial point
 	@param lamb : penalty parameter of the non-smooth objective
-	@param batch_size : batch size used to calculate gradient difference in the inner loop
+	@param inner_batch_size : batch size used to calculate gradient difference in the inner loop
 	@param GradEval : function pointer for gradient of f
 	@param GradDiffEval : function pointer for difference of gradient nablaf(w') - nablaf(w)
 	@param FuncF_Eval : function pointer to compute objective value of f(w)
@@ -114,7 +114,21 @@ def prox_svrg(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_n
 	# print initial message
 	if verbose:
 		print('Start ProxSVRG...')
-		print('eta = ', eta, '\nInner Batch Size = ', batch_size)
+		print(
+			' {message:{fill}{align}{width}}'.format(message='',fill='=',align='^',width=56,),'\n',
+			'{message:{fill}{align}{width}}'.format(message='eta',fill=' ',align='^',width=13,),'|',
+			'{message:{fill}{align}{width}}'.format(message='lambda',fill=' ',align='^',width=15,),'|',
+			'{message:{fill}{align}{width}}'.format(message='Inner Batch Size',fill=' ',align='^',width=20,),'\n',
+			'{message:{fill}{align}{width}}'.format(message='',fill='-',align='^',width=56,)
+		)
+		print(
+				'{:^14.3e}'.format(eta),'|',
+				'{:^15.3e}'.format(lamb),'|',
+				'{:^19d}'.format(inner_batch_size)
+			)
+		print(
+			' {message:{fill}{align}{width}}'.format(message='',fill='=',align='^',width=56,),'\n',
+			)
 
 	# Assign initial value
 	w_til = w0
@@ -162,7 +176,7 @@ def prox_svrg(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_n
 						'{:^15.3e}'.format(train_loss),'|',
 						'{:^15.3e}'.format(norm_grad_map),'|',
 						'{:^15.5f}'.format(train_accuracy),'|',
-						'{:^13.5f}'.format(test_accuracy),'|',
+						'{:^13.5f}'.format(test_accuracy)
 					)
 				else:
 					print(
@@ -170,7 +184,7 @@ def prox_svrg(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_n
 						'{:^15.3e}'.format(train_loss),'|',
 						'{:^15.3e}'.format(norm_grad_map),'|',
 						'{message:{fill}{align}{width}}'.format(message='N/A',fill=' ',align='^',width=15,),'|',
-						'{message:{fill}{align}{width}}'.format(message='N/A',fill=' ',align='^',width=13,),'|',
+						'{message:{fill}{align}{width}}'.format(message='N/A',fill=' ',align='^',width=13,)
 					)	
 
 			# update history if requires
@@ -197,10 +211,10 @@ def prox_svrg(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_n
 		for iter in range(0,max_inner):
 
 			# calculate stochastic gradient diff
-			grad_diff = GradDiffEval(n, d, batch_size, X_train, Y_train, bias, w_til, w, nnz_Xtrain)
+			grad_diff = GradDiffEval(n, d, inner_batch_size, X_train, Y_train, bias, w_til, w, nnz_Xtrain)
 
 			# Increase number of component gradient
-			num_grad += 2*batch_size
+			num_grad += 2 * inner_batch_size
 			num_epoch = num_grad / n
 
 			# Algorithm update
@@ -233,7 +247,7 @@ def prox_svrg(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_n
 							'{:^15.3e}'.format(train_loss),'|',
 							'{:^15.3e}'.format(norm_grad_map),'|',
 							'{:^15.5f}'.format(train_accuracy),'|',
-							'{:^13.5f}'.format(test_accuracy),'|',
+							'{:^13.5f}'.format(test_accuracy)
 						)
 					else:
 						print(
@@ -241,7 +255,7 @@ def prox_svrg(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_n
 							'{:^15.3e}'.format(train_loss),'|',
 							'{:^15.3e}'.format(norm_grad_map),'|',
 							'{message:{fill}{align}{width}}'.format(message='N/A',fill=' ',align='^',width=15,),'|',
-							'{message:{fill}{align}{width}}'.format(message='N/A',fill=' ',align='^',width=13,),'|',
+							'{message:{fill}{align}{width}}'.format(message='N/A',fill=' ',align='^',width=13,)
 						)	
 
 				# update history if requires
@@ -265,6 +279,7 @@ def prox_svrg(n, d, X_train, Y_train, X_test, Y_test, bias, eta, eta_comp, max_n
 		w_til = w
 
 	# Outer loop ends
+	print(' {message:{fill}{align}{width}}'.format(message='',fill='=',align='^',width=87,))
 
 	return w, hist_NumGrad, hist_NumEpoch, hist_TrainLoss, hist_GradNorm, hist_MinGradNorm, hist_TrainAcc, hist_TestAcc
 

@@ -35,6 +35,7 @@ import tensorflow as tf
 import numpy as np
 import random
 import pandas as pd
+import math
 
 from utils import *
 
@@ -199,15 +200,31 @@ def Prox_SGD(x, y, x_train, y_train, x_test, y_test, batch_size, LRinit, LRprime
 
         # setup batch size to compute full/batch gradient
         bs = 128 
-        num_batches_grad_full   = num_examples  // bs
-        num_batches_grad_batch  = batch_size    // bs
+        num_batches_grad_full   = math.ceil( num_examples  / bs )
+        num_batches_grad_batch  = math.ceil( batch_size  / bs )
 
         scale_full  = 1.0 / (num_batches_grad_full + 0.0)
         scale_batch = 1.0 / (num_batches_grad_batch + 0.0)
         
         # print initial message
         print("Training using ProxSGD...")
-        print('eta = {:.3e}'.format(LRinit), '\neta\' = {:.3e}'.format(LRprime), '\nlambda = {:.3e}'.format(LBD), '\nBatch size = ',batch_size, '\n')
+        print(
+            ' {message:{fill}{align}{width}}'.format(message='',fill='=',align='^',width=63,),'\n',
+            '{message:{fill}{align}{width}}'.format(message='eta',fill=' ',align='^',width=13,),'|',
+            '{message:{fill}{align}{width}}'.format(message='eta_prime',fill=' ',align='^',width=13,),'|',
+            '{message:{fill}{align}{width}}'.format(message='lambda',fill=' ',align='^',width=15,),'|',
+            '{message:{fill}{align}{width}}'.format(message='Batch Size',fill=' ',align='^',width=13,),'\n',
+            '{message:{fill}{align}{width}}'.format(message='',fill='-',align='^',width=63,)
+        )
+        print(
+                '{:^14.2f}'.format(LRinit),'|',
+                '{:^13.1f}'.format(LRprime),'|',
+                '{:^15.3e}'.format(LBD),'|',
+                '{:^12d}'.format(batch_size)
+            )
+        print(
+            ' {message:{fill}{align}{width}}'.format(message='',fill='=',align='^',width=63,),'\n',
+            )
         
         # initialize stats variables
         min_grad_map_norm_square   = 1.0e6
@@ -370,6 +387,7 @@ def Prox_SGD(x, y, x_train, y_train, x_test, y_test, batch_size, LRinit, LRprime
                 last_print_num_grad = num_grad
 
         #end main loop
+        print(' {message:{fill}{align}{width}}'.format(message='',fill='=',align='^',width=87,))
 
         # save solution
         for w in w_list:

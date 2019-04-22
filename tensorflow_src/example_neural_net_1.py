@@ -34,7 +34,7 @@ from load_data import *
 
 # import methods
 from method_ProxSARAH import *
-from method_ProxSPDB import *
+from method_ProxSpiderBoost import *
 from method_ProxSVRG import *
 from method_ProxSGD import *
 
