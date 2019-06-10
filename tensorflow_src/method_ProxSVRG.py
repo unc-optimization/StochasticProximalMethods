@@ -35,6 +35,7 @@ import tensorflow as tf
 import numpy as np
 from sklearn.utils import shuffle
 import pandas as pd
+import random
 import math
 
 from utils import *
@@ -331,7 +332,7 @@ def Prox_SVRG(x, y, x_train, y_train, x_test, y_test, inner_batch_size, LR, LR_C
                     
                 else:
                     # sample mini batch
-                    index = shuffle(np.array([id for id in range(num_examples)]), n_samples = inner_batch_size)
+                    index = random.sample(range(num_examples), inner_batch_size)
 
                     # extract samples
                     batch_x = x_train[index]

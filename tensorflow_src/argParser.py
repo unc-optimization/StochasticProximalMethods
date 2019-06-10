@@ -150,7 +150,7 @@ def argParser():
 
 	if args.algorithms:
 		if '1' in args.algorithms:
-		    print ('Prox SARAH')
+		    print ('ProxSARAH')
 		    alg_list["ProxSARAH"] = 1
 		
 		if '2' in args.algorithms:
@@ -158,11 +158,11 @@ def argParser():
 		    alg_list["ProxSpiderBoost"] = 1
 		
 		if '3' in args.algorithms:
-		    print ('Prox SVRG')
+		    print ('ProxSVRG')
 		    alg_list["ProxSVRG"] = 1
 		
 		if '4' in args.algorithms:
-		    print ('Prox SGD')
+		    print ('ProxSGD')
 		    alg_list["ProxSGD"] = 1
 
 		if '0' in args.algorithms:
