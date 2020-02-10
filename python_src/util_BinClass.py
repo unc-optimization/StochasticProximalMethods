@@ -518,8 +518,6 @@ def grad_diff_eval_bin_class_loss_2(n, d, b, X, Y, bias, w1, w2, nnzX = 0):
 			expt1 = np.exp(batch_Y * (batch_X.dot(w1) + batch_bias) )
 			expt2 = np.exp(batch_Y * (batch_X.dot(w2) + batch_bias) )
 
-			expt1 = np.exp( 2.0*omega * batch_Y * (batch_X.dot(w1) + batch_XYw_bias) )
-			expt2 = np.exp( 2.0*omega * batch_Y * (batch_X.dot(w2) + batch_XYw_bias) )
 			diff_expt = expt2/(1.0 + expt2)/(1.0 + expt2)/(1.0 + expt2) - expt1/(1.0 + expt1)/(1.0 + expt1)/(1.0 + expt1)
 
 			full_grad_diff -= 2.0 * batch_X.transpose().dot( batch_Y * diff_expt )
@@ -681,8 +679,8 @@ def grad_diff_eval_bin_class_loss_3(n, d, b, X, Y, bias, w1, w2, nnzX = 0):
 		i = np.random.randint(0, n)
 
 		Xi = X[i,:]
-		expt1 = np.exp( -Y[i]*(Xi.dot(w1) + bias[i]) )
-		expt2 = np.exp( -Y[i]*(Xi.dot(w2) + bias[i]) )
+		expt1 = np.exp( Y[i]*(Xi.dot(w1) + bias[i]) )
+		expt2 = np.exp( Y[i]*(Xi.dot(w2) + bias[i]) )
 
 		diff_expt = (1.0/(expt2*exp_a + 1.0) - 1.0/(expt2 + 1.0)) - (1.0/(expt1*exp_a + 1.0) - 1.0/(expt1 + 1.0))
 		
